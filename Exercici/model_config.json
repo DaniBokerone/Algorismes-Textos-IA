@@ -1,0 +1,54 @@
+{
+    "paths": {
+        "data": "./data/news.csv", 
+        "trained_network": "model_network.pth",
+        "metadata": "model_metadata.json"
+    },
+    "columns": {
+        "categories": "category",
+        "text": "body" 
+    },
+    "model_configuration": {
+        "is_binary": false,
+        "max_len": 128,
+        "layers": [
+            {
+                "type": "Embedding",
+                "vocab_size": 30522,
+                "embedding_dim": 100
+            },
+            {
+                "type": "Dropout",
+                "p": 0.2
+            },
+            {
+                "type": "Linear",
+                "in_features": 100,
+                "out_features": 64
+            },
+            {
+                "type": "ReLU"
+            },
+            {
+                "type": "Dropout",
+                "p": 0.2
+            },
+            {
+                "type": "Linear",
+                "in_features": 64,
+                "out_features": "unique_categories"
+            }
+        ]
+    },
+    "training": {
+        "batch_size": 32,
+        "epochs": 32,
+        "learning_rate": 0.001
+    },
+    "optimization": {
+        "early_stopping": {
+            "patience": 8,
+            "min_delta": 0
+        }
+    }
+}
